@@ -1,0 +1,19 @@
+# Porta única
+sudo ufw allow 6443
+
+sudo ufw enable
+# Faixas de portas (com protocolo opcional, geralmente TCP)
+sudo ufw allow 10250:10255/tcp
+sudo ufw allow 30000:32767/tcp
+sudo ufw allow 2379:2380/tcp
+
+# Portas individuais
+sudo ufw allow 6783/tcp
+sudo ufw allow 6784/tcp
+
+sudo ufw allow 6783/udp
+sudo ufw allow 6784/udp
+
+sudo ufw allow 22/tcp
+
+sudo ufw status numbered

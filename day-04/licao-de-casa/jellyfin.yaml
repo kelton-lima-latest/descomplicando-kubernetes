@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jellyfin-licao-de-casa
+  name: jellyfin-licao-de-casa
+  namespace: licao-de-casa
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jellyfin-licao-de-casa
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: jellyfin-licao-de-casa
+    spec:
+      containers:
+      - image: linuxserver/jellyfin:latest
+        name: jellyfin
+        ports:
+        - containerPort: 8096
+          protocol: TCP
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1"
+          requests:
+            memory: "256Mi"
+            cpu: "0.5"
+        livenessProbe:
+          httpGet:
+            path: /web/index.html
+            port: 8096
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /web/index.html
+            port: 8096
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        startupProbe:
+          httpGet:
+            path: /web/index.html
+            port: 8096
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+status: {}

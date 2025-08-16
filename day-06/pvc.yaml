@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: giropops-pvc
+spec:
+  storageClassName: giropops-storage
+  volumeName: giropops-pv-nfs  # Vinculação direta
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  selector:
+    matchLabels:
+      type: nfs-volume  # Match com a label do PV

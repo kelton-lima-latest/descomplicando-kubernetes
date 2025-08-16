@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: giropops-pv-nfs
+  labels:
+    type: nfs-volume  # Label consistente
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: giropops-storage
+  nfs:
+    server: ip-nfs-server  # Substitua pelo IP do servidor NFS
+    path: /mnt/nfs
+    readOnly: false
